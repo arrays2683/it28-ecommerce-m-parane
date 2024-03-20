@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Service</title>
+  <style>
+    body{font-family:Arial,sans-serif;margin:0;padding:0;background-color:#f4f4f4}.container{max-width:800px;margin:20px auto;padding:20px;background-color:#fff;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,.1)}.container h1{text-align:center}.container form{margin-top:20px}.container label,input,textarea{display:block;margin-bottom:10px}.container input,.container textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;box-sizing:border-box}.container button{padding:10px 20px;background-color:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer}.container button:hover{background-color:#0056b3}.container .messages{margin-top:20px}.container .message{margin-bottom:10px;padding:10px;background-color:#eaeaea;border-radius:4px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contact Customer Service</h1>
+    <form id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+      
+      <button type="submit">Submit</button>
+    </form>
+    
+    <div class="messages" id="messages"></div>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      fetch('https://example.com/customer-service', {method:'POST',body:formData}).then(response => response.json()).then(data => {var message = document.createElement('div');message.classList.add('message');message.textContent = data.message;document.getElementById('messages').appendChild(message);document.getElementById('contactForm').reset();}).catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
